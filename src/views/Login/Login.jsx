@@ -3,9 +3,7 @@ import EmailPasswordForm from '../../components/EmailPasswordForm/EmailPasswordF
 export default function Login() {
   return (
     <>
-      <div>Welcome back</div>
-      <EmailPasswordForm />
-      <p>Link: Need to sign up</p>
+      <EmailPasswordForm signin={true} />
     </>
   );
 }

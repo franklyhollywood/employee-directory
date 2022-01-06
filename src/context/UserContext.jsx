@@ -1,24 +1,28 @@
 import { useContext, createContext, useState } from 'react';
+import { getUser } from '../services/users';
 
-const userContext = createContext();
+const UserContext = createContext();
 
-const userProvider = ({ children }) => {
-  const [user, setUser] = useState('');
+const UserProvider = ({ children }) => {
+  const currentUser = getUser();
+  const [user, setUser] = useState(
+    currentUser ? { id: currentUser.id, email: currentUser.email } : null
+  );
 
   return (
-    <userContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser }}>
       {children}
-    </userContext.Provider>
+    </UserContext.Provider>
   );
 };
 
 const useUser = () => {
-  const context = useContext(userContext);
+  const UserCtx = useContext(UserContext);
 
-  if (context === undefined) {
-    throw new Error('Incorrect Placement');
+  if (UserCtx === undefined) {
+    throw new Error('Must be wrapped in a userprovider to use useUser');
   }
-  return context;
+  return UserCtx;
 };
 
-export { userProvider, useUser };
+export { UserProvider, useUser };

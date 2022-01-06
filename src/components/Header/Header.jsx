@@ -1,8 +1,11 @@
+import HeaderLogin from '../HeaderLogin/HeaderLogin.jsx';
+
 export default function Header() {
   return (
     <div>
-      acme inc name, sign in button if user is signed out, you are signed in as:
-      email, signout button if user signed in
+      <HeaderLogin loggedin={true} />
+      <h1>Acme Employee Directory</h1>
+      <hr></hr>
     </div>
   );
 }

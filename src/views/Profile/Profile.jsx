@@ -1,9 +1,11 @@
-export default function Profile() {
+export default function Profile(props) {
   return (
     <>
-      <p>edit profile link to EditProfile view</p>
-      <p>name: string</p>
-      <p>email: string, birthdate, BIO, link to edit profile</p>
+      <button>EDIT PROFILE</button>
+      <h1>{props.name}</h1>
+      <p>{props.email}</p>
+      <p>{props.birthdate}</p>
+      <p>{props.aboutme}</p>
     </>
   );
 }
