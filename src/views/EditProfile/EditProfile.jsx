@@ -1,24 +1,48 @@
-export default function EditProfile(props) {
-  const legendText = props.create ? 'CREATE PROFILE' : 'EDIT PROFILE';
+import { useUser } from '../../context/UserContext.jsx';
+import { useProfile } from '../../context/ProfileContext.jsx';
+
+export default function EditProfile() {
+  const { user } = useUser();
+  const { profile, setProfile } = useProfile();
+  const legendText = !profile ? 'CREATE PROFILE' : 'EDIT PROFILE';
+
+  const handleSubmit = () => {};
+
   return (
     <>
-      <form>
+      <form onSubmit="handleSubmit">
         <fieldset>
           <legend>{legendText}</legend>
           <div>
-            <label>Name</label>
-            <input type="text" />
+            <label>
+              Name
+              <input
+                value={profile ? profile.name : ''}
+                onChange="handleChange"
+                type="text"
+              />
+            </label>
           </div>
-          <div>email</div>
+          <div>email: {user.email}</div>
           <div>
-            <label>Birthday</label>
-            <input type="date" />
+            <label>
+              Birthday
+              <input
+                value={profile ? profile.birthday : ''}
+                onChange="handleChange"
+                type="date"
+              />
+            </label>
           </div>
           <div>
             <div>
               <label>Tell us a little about yourself</label>
             </div>
-            <textarea></textarea>
+            <textarea
+              value={profile ? profile.bio : ''}
+              onChange="handleChange"
+              rows="4"
+            />
           </div>
           <button>SAVE</button>
         </fieldset>

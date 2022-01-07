@@ -3,18 +3,23 @@ import EmailPasswordForm from '../../components/EmailPasswordForm/EmailPasswordF
 import { useUser } from '../../context/UserContext.jsx';
 import { signInUser } from '../../services/users.js';
 import { useHistory } from 'react-router-dom';
+import { useProfile } from '../../context/ProfileContext.jsx';
 
 export default function Register() {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { setUser } = useUser();
+  const { profile } = useProfile();
+
   const handleSignIn = async (e) => {
     // call signup function coming from users file
     e.preventDefault();
     const user = await signInUser(email, password);
     setUser(user);
-    history.replace('/profile');
+    {
+      profile ? history.replace('/profile') : history.replace('/editprofile');
+    }
   };
   return (
     <>
@@ -28,7 +33,7 @@ export default function Register() {
         setPassword={setPassword}
       />
       <p>
-        Need an account?<a href="/login">Sign up</a>
+        Need an account?<a href="/register">Sign up</a>
       </p>
     </>
   );

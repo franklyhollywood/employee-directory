@@ -1,14 +1,22 @@
 import { useUser } from '../../context/UserContext.jsx';
 import { Link } from 'react-router-dom';
 import { signOutUser } from '../../services/users.js';
+import { useHistory } from 'react-router-dom';
 
 export default function HeaderLogin({ loggedin }) {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
+  const history = useHistory();
+
+  const handleLogOut = () => {
+    signOutUser();
+    setUser(null);
+    history.push('/login');
+  };
 
   const loggedInDiv = (
     <div>
       {/* ? is elvis notation: checking to see if variable is defined before reading a property of that variable */}
-      {user?.email} <button onClick={signOutUser}>sign out</button>
+      {user?.email} <button onClick={handleLogOut}>sign out</button>
     </div>
   );
 
