@@ -1,22 +1,37 @@
-import React from 'react';
-
-export default function EmailPasswordForm(props) {
-  const text = props.signin ? 'SIGN IN' : 'SIGN UP';
+export default function EmailPasswordForm({
+  handleSubmit,
+  signin,
+  email,
+  setEmail,
+  password,
+  setPassword,
+}) {
+  const text = signin ? 'SIGN IN' : 'SIGN UP';
   return (
     <div>
-      <h2>Welcome!</h2>
-      <form>
+      {/* <h2>Welcome!</h2> */}
+      <form onSubmit={handleSubmit}>
         <fieldset>
           <legend>{text}</legend>
           <div>
-            <label>Email</label>
-            <input type="email" />
+            <label htmlFor="email">Email</label>
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              id="email"
+              type="email"
+            />
           </div>
           <div>
-            <label>Password</label>
-            <input type="password" />
+            <label htmlFor="password">Password</label>
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              id="password"
+              type="password"
+            />
           </div>
-          <button>{text}</button>
+          <button type="submit">{text}</button>
         </fieldset>
       </form>
     </div>
