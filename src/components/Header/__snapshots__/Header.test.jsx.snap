@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`header test 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+         
+        <button>
+          sign out
+        </button>
+      </div>
+    </div>
+    <h1>
+      Acme Employee Directory
+    </h1>
+    <hr />
+  </div>
+</div>
+`;
+
+exports[`header test 2`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        email@email.com
+         
+        <button>
+          sign out
+        </button>
+      </div>
+    </div>
+    <h1>
+      Acme Employee Directory
+    </h1>
+    <hr />
+  </div>
+</div>
+`;

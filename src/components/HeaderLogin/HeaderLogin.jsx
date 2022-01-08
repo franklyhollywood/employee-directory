@@ -7,8 +7,8 @@ export default function HeaderLogin({ loggedin }) {
   const { user, setUser } = useUser();
   const history = useHistory();
 
-  const handleLogOut = () => {
-    signOutUser();
+  const handleLogOut = async () => {
+    await signOutUser();
     setUser(null);
     history.push('/login');
   };

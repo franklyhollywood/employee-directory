@@ -26,12 +26,7 @@ export default function App() {
               <Register />
             </Route>
             <PrivateRoute exact path="/profile">
-              <Profile
-                name={'Marvin'}
-                email={'marvinlambert@me.com'}
-                birthdate={'Birthdate: 01/01/1977'}
-                aboutme={<b>Bio: anything about me</b>}
-              />
+              <Profile />
             </PrivateRoute>
             <PrivateRoute exact path="/editprofile">
               <EditProfile />

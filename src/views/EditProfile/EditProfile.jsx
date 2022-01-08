@@ -1,56 +1,100 @@
+import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useUser } from '../../context/UserContext.jsx';
-import { useProfile } from '../../context/ProfileContext.jsx';
+import {
+  createProfile,
+  getProfile,
+  updateProfile,
+} from '../../services/profiles.js';
 
 export default function EditProfile() {
   const { user } = useUser();
-  const { profile, setProfile } = useProfile();
-  const legendText = !profile ? 'CREATE PROFILE' : 'EDIT PROFILE';
+  const history = useHistory();
+  const [profile, setProfile] = useState({});
+  const [name, setName] = useState('');
+  const [birthday, setBirthday] = useState('');
+  const [bio, setBio] = useState('');
 
-  const handleSubmit = () => {};
+  useEffect(() => {
+    //get the profile from supabase table
+    //set the profile
+    const setProfileResponse = async () => {
+      const res = await getProfile();
+      setProfile(res);
+      setName(res.name);
+      setBirthday(res.birthday);
+      setBio(res.bio);
+    };
+    setProfileResponse();
+  }, []);
+
+  const handleCreateSubmit = async (e) => {
+    e.preventDefault();
+    const email = user.email;
+    const profile = await createProfile({ name, email, bio, birthday });
+    if (profile) {
+      history.push('/profile');
+    }
+  };
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    const email = user.email;
+    const update = await updateProfile({ name, email, bio, birthday });
+    if (update) {
+      history.push('/profile');
+    }
+  };
+
+  //   const handleChange = (e) => {
+  //     setProfile(e.target.value);
+  //   };
 
   return (
     <>
-      <form onSubmit="handleSubmit">
+      <form onSubmit={profile.email ? handleEditSubmit : handleCreateSubmit}>
         <fieldset>
-          <legend>{legendText}</legend>
+          {!profile.email ? <p>Create a Profile</p> : <p>Edit Profile </p>}
           <div>
             <label>
-              Name
+              name:{' '}
               <input
-                value={profile ? profile.name : ''}
-                onChange="handleChange"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 type="text"
-              />
+              />{' '}
             </label>
           </div>
-          <div>email: {user.email}</div>
+          <div>
+            <label>email: {user.email} </label>
+          </div>
           <div>
             <label>
-              Birthday
+              birthday:{' '}
               <input
-                value={profile ? profile.birthday : ''}
-                onChange="handleChange"
+                name="birthday"
+                value={birthday}
+                onChange={(e) => setBirthday(e.target.value)}
                 type="date"
-              />
+              />{' '}
             </label>
           </div>
           <div>
-            <div>
-              <label>Tell us a little about yourself</label>
-            </div>
-            <textarea
-              value={profile ? profile.bio : ''}
-              onChange="handleChange"
-              rows="4"
-            />
+            <label>
+              bio:
+              <textarea
+                name="bio"
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
+                rows="4"
+                cols="50"
+              />{' '}
+            </label>
           </div>
-          <button>SAVE</button>
+          <button>Save Profile</button>
         </fieldset>
       </form>
     </>
   );
 }
-//form to create profile form
-//Name string
-//email: string (disabled; not editable, but still visible in the form)
-//birthday
