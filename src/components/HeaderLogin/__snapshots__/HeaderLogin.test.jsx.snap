@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`header test 1`] = `
+<div>
+  <div>
+    <div>
+      <p>
+        Not Signed in
+      </p>
+      <a
+        href="/login"
+      >
+        <button>
+          Sign in
+        </button>
+      </a>
+    </div>
+  </div>
+</div>
+`;
